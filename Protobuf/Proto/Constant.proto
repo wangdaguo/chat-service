@@ -1,0 +1,274 @@
+syntax = "proto3";
+package protobuf.Garuda;
+option objc_class_prefix = "Constant";
+option java_package = "com.asiainno.garuda.im.proto";
+
+//枚举常量
+
+//消息类型：决定消息的大类， 确定报文的逻辑走向
+enum Type {
+    // 预留
+    PRESERVE = 0;
+
+    //---------- 消息类别标识：SERVER ，服务器交互类的消息 begin ----------//
+    // 出席注册
+    REGISTER = 1;
+    //心跳
+    PING = 2;
+    PONG = 3;
+    // 登出
+    OUT = 4;
+    //响应
+    ACK = 5;
+    //服务器通知
+    SERVER_NOTICE = 6;
+    //---------- 消息类别标识：SERVER ，服务器交互类的消息 end ----------//
+
+    //---------- 消息类别标识：USER_MESSAGE ，用户类消息 begin ----------//
+    //单聊，通过 rIds 来确认是否是批量发送
+    USER_CHAT = 7;
+    //群聊，通过 rIds 来确认是否是群内的私聊
+    GROUP_CHAT = 8;
+    //---------- 消息类别标识：USER_MESSAGE ，用户类消息 end ----------//
+
+    //---------- 消息类别标识：SERVICE_MESSAGE ，客服类消息 begin ----------//
+    //客服消息
+    SERVICE_CHAT = 9;
+    //---------- 消息类别标识：SERVICE_MESSAGE ，客服类消息 end ----------//
+
+    //---------- 消息类别标识：SYS_MESSAGE ，系统类消息 begin ----------//
+    //系统通知， 通过 gid 来确认是否是群的通知
+    SYS_NOTICE = 10;
+    //系统广播
+    SYS_BROADCAST = 11;
+    //---------- 消息类别标识：SYS_MESSAGE ，系统类消息 end ----------//
+
+    //---------- 消息类别标识：PULL ，用户到系统的消息 begin ----------//
+    //拉取动作
+    PULL_ACT = 12;
+    //---------- 消息类别标识：PULL ，用户到系统的消息 ----------//
+
+    //---------- 消息类别标识：INTERNAL ，IM内部的消息 begin ----------//
+    //保留 100 - 200
+
+    //---------- 消息类别标识：INTERNAL ，IM内部的消息 end ----------//
+
+}
+
+// 业务类型，决定消息内容
+enum MsgType {
+    //默认 无
+    NULL = 0x0000;
+
+    //---------- 用于 Type = ACK begin ----------//
+    //范围 0x0001 - 0x001F，1 - 31, 共31 个
+
+    //消息ACK下行，用于 Type= ACK，无 body ，客户端根据 msgid 来判断属于那个消息的ACK。
+    MSG_ACK_2C = 0x0001;
+    //消息ACK上行，用于 Type= ACK，无 body，需要客户端额外传入 appkey 、sid（ack消息的发送者）、msgVersion 。 IM根据这三个参数确定ACK记录。
+    MSG_ACK_2S = 0x0002;
+    //登出ACK下行，用于 Type= ACK，无 body
+    OUT_ACK = 0x0003;
+    //---------- 用于 Type = ACK end ----------//
+
+    //---------- 用于 Type = SERVER_NOTICE begin ----------//
+    //范围 0x0020 - 0x004F，32 － 79 ，共48个
+
+    //IM检测出用户多端登录，踢出用户的上一次活跃链接，客户端做相应处理。用于TYPE=SERVER_NOTICE，无 body
+    INVALID_CONNECT = 0x0020;
+
+    //用户session、认证信息失效， 需要重新获取认证信息。用于TYPE=SERVER_NOTICE，无 body
+    MUST_RELOGIN = 0x0021;
+
+    // 不允许发送上行报文。用于TYPE=SERVER_NOTICE，无 body
+    NO_REQUEST = 0x0022;
+    // 消息版本（包括用户消息（单聊、群）、系统消息）。用于TYPE=SERVER_NOTICE，body 为 ServerActivity.MsgVersions
+    PUSH_VERSION = 0x0023;
+    //IM服务端的校验，客户端不需要此消息，消息长度超出限制。用于TYPE=SERVER_NOTICE，无 body。用于消息的下行反馈
+    OUT_OF_SIZE = 0x0024;
+
+    //---------- 用于 Type = PULL_ACT end ----------//
+
+    //---------- 用于 Type = PULL_ACT begin ----------//
+    //范围 0x0050 - 0x007F，80 － 127，共48个
+
+    //拉取消息版本(用于 Type = PULL_ACT )
+    PULL_VERSION = 0x0050;
+    //拉取离线消息(用于 Type = PULL_ACT )
+    PULL_OFFLINE_MSG = 0x0051;
+    //拉取群的消息(用于 Type = PULL_ACT )
+    PULL_GROUP_MSG = 0x0052;
+    //拉取系统的消息(用于 Type = PULL_ACT )
+    PULL_SYS_MSG = 0x0053;
+    //拉取最近的消息
+    PULL_RECENT_MSG = 0x0054;
+    //---------- 用于 Type = ACK end ----------//
+
+    //---------- 用于TYPE中消息类别标识为 USER_MESSAGE,SYS_MESSAGE begin ----------//
+    //范围 0x0100 - 0x0FFF，256 － 4095，共3840个
+
+    // 一般消息(用于TYPE中消息类别标识为 USER_MESSAGE,SYS_MESSAGE)
+    NORMAL_MSG = 0x0100;
+
+    //用户申请好友提示 (用于TYPE = SYS_NOTICE)
+    FRIEND_APPLY = 0x0101;
+    //互相关注成功 (用于TYPE = SYS_NOTICE)
+    FRIEND_VALID = 0x0102;
+    //好友关系失效 (用于TYPE = SYS_NOTICE)
+    FRIEND_INVALID = 0x0103;
+
+
+    /**
+        用户中心：
+            用户VIP升保级提示
+            用户等级升级提示
+            社区评论通知
+            社区赞通知
+
+        商城：
+            离线时守护被购买
+            背包礼物存入
+            背包礼物过期
+
+        todo 用不同的业务类型来区分，client 端做特定的处理，展示、多语言
+        todo 业务类型按需扩展， IM 只做透传
+    **/
+
+    //---------- 用于TYPE中消息类别标识为 USER_MESSAGE,SYS_MESSAGE end ----------//
+
+    //---------- IM内部保留的类型 begin ----------//
+    //范围 0xff00 - 0xffff，65280 － 65535，共 255个
+
+    //---------- IM内部保留的类型 end ----------//
+
+}
+
+// 消息的格式，决定消息的格式内容
+enum MsgFormat {
+    //默认，普通纯文本消息
+    TEXT = 0x0000;
+    //附带跳转动作的文本消息
+    GOTO_TEXT = 0x0001;
+    //普通纯图片消息
+    PIC = 0x0002;
+    //附带跳转动作的图片消息
+    GOTO_PIC = 0x0003;
+    //音频
+    AUDIO = 0x0004;
+    //视频
+    VIDEO = 0x0005;
+    //分享链接
+    LINK = 0x0006;
+}
+
+// 消息的跳转类型
+enum GotoType {
+    //默认，客户端根据消息类型自行选择
+    CUSTOM = 0x0000;
+    //跳转到直播间
+    LIVEROM = 0x0001;
+    //跳转到个人profile页面
+    PROFILE = 0x0002;
+    //跳转到内部浏览器
+    INNER_H5 = 0x0003;
+    //跳转到外部浏览器
+    OUTER_H5 = 0x0004;
+
+    //跳转至“我的等级”
+    MY_GRADE = 0x0005;
+    //跳转至“我的会员”
+    MY_VIP = 0x0006;
+    //跳转至“我的背包”
+    MY_PACK = 0x0007;
+    //跳转至“我的背包—过期礼物”
+    MY_PACK_EXPIRE_GIFT = 0x0008;
+
+}
+
+// 用户类型
+enum UserType {
+    //默认，一般用户
+    NORMAL = 0x0000;
+    // 主播
+    ANCHOR = 0x0001;
+    // 房间管理员
+    MANAGER = 0x0002;
+    // 机器人
+    ROBOT = 0x0003;
+    // 系统管理员
+    ADMIN = 0x0004;
+    //游客
+    GUESS = 0x0005;
+
+}
+
+// 终端类型
+enum TermType {
+    // 客户端使用
+    NONE = 0x0000;
+    IPHONE = 0x0001;
+    ANDROID = 0x0002;
+    H5 = 0x0003;
+    // PC网页
+    WEB = 0x0004;
+    // 手机网页
+    WAP = 0x0005;
+    // OBS
+    OBS = 0x0006;
+
+}
+
+//服务类型
+enum ServerType {
+    //tcp server
+    CONNECTOR_TCP = 0x000;
+    //websocket server
+    CONNECTOR_WS = 0x0001;
+    //a3s
+    A3S = 0x0002;
+
+}
+
+//结果码
+enum ResultCode {
+    //默认，成功
+    SUCCESS = 0x0000;
+
+    // 报文验证错误
+    ERROR_MSG = 0x0001;
+    //其他错误
+    ERROR_OTHERS = 0x0002;
+    // 缺失参数
+    ERROR_LOSE_PARAMETER = 0x0003;
+    // 用户token失效
+    USER_TOKEN_INVALID = 0x0004;
+    // 用户不存在
+    FAIL_USER_NOT_EXIST = 0x0005;
+    // 认证token失效
+    AUTH_TOKEN_INVALID = 0x0006;
+    //m1错误
+    ERROR_M1 = 0x0007;
+
+}
+
+// 用户信息
+message UserInfo {
+    //用户id
+    int64 uId = 1;
+    //用户名
+    string userName = 2;
+    //用户图标
+    string userIcon = 3;
+    //用户等级
+    int32 userGrade = 4;
+    //用户性别
+    int32 userSex = 5;
+    //vip
+    int32 vip = 6;
+    //用户类型
+    int32 uType = 7;
+    // 语言
+    string lang = 8;
+    // 国家码
+    string cc = 9;
+}

@@ -1,0 +1,53 @@
+syntax = "proto3";
+package protobuf.Garuda;
+
+option objc_class_prefix="PresenceAuth";
+option java_package = "com.asiainno.garuda.im.proto";
+
+//认证PB协议
+
+//Client 调用 IM 的https 接口，请求认证。
+//获取 Connector ，以及 authToken 、m1、对称密钥
+message AuthRequest {
+    //IM分配的appkey
+    string appkey = 1;
+    //IM分配的app secret
+    string appSecret = 2;
+    //用户标识
+    int64 uId = 3;
+    //用户 token
+    string userToken = 4;
+    // 终端类型，详见 TermType 枚举, Constant.TermType
+    int32 termType = 5;
+
+}
+
+//IM 响应认证信息，Connector ，以及 authToken 、m1、对称密钥
+message AuthResponse {
+
+    //认证结果
+    int32 aResult = 1;
+
+    //IM authToken  可解密m1得到对称密钥
+    bytes authToken = 2;
+    // authToken 的超时时间，单位（秒）
+    int64 expires = 3;
+
+    // 加密后秘钥CK
+    bytes m1 = 4;
+
+    // Connector ip
+    string ip = 5;
+    // Connector的端口
+    int32 port = 6;
+
+    //备用地址列表
+    repeated bytes addrs = 7;
+
+}
+
+//明文秘钥CK结构
+message Ck {
+    int64 uId = 1;
+    int64 timestamp = 2;
+}

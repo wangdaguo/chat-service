@@ -1,0 +1,139 @@
+syntax = "proto3";
+package protobuf.Garuda;
+
+import "Message.proto";
+option objc_class_prefix = "MsgActivity";
+option java_package = "com.asiainno.garuda.im.proto";
+
+
+//消息交互类报文体
+
+
+/**
+拉取消息版本上行报文体，可选，如果不传将不会返回未读消息数量。
+适用于：
+    1. 消息类型 Type = PULL_ACT（拉取动作）
+       业务类型 MsgType = PULL_VERSION（拉取消息版本）
+    2. 消息类型 Type = PING（心跳）
+       业务类型 MsgType = PULL_VERSION（拉取消息版本）
+
+Message 上行 需传字段：
+    version 消息报文版本
+    appkey  IM分配的appkey
+    sendTime    发送时间(单位:毫秒)
+    type    消息类型，详见 Type 枚举, Constant.Type
+    mType   业务类型，详见 MsgType 枚举，Constant.MsgType
+    sId 发送者ID
+    body 消息报文体
+    cc  国家码
+
+**/
+message PullVersions{
+    //用户消息本地版本
+    int64 userlv = 1;
+    //系统消息本地版本
+    int64 syslv = 2;
+}
+
+/**
+拉取离线版本下行报文体
+适用于：
+    1. 消息类型 Type = PULL_ACT（拉取动作）
+       业务类型 MsgType = PULL_VERSION（拉取消息版本）
+    2. 消息类型 Type = SERVER_NOTICE（服务器通知）
+       业务类型 MsgType = PUSH_VERSION（消息版本）
+
+Message 下行返回字段：
+    version 消息报文版本
+    appkey  IM分配的appkey
+    sendTime    发送时间(单位:毫秒)
+    type    消息类型，详见 Type 枚举, Constant.Type
+    mType   业务类型，详见 MsgType 枚举，Constant.MsgType
+    sId 发送者ID
+    body 消息报文体
+    cc  国家码
+
+**/
+message PushVersions{
+    //用户消息最新版本
+    int64 usercv = 1;
+    //用户用户消息 未读消息数量
+    int64 usize = 2;
+    //系统消息最新版本
+    int64 syscv = 3;
+    //系统消息 未读消息数量
+    int64 ssize = 4;
+}
+
+
+/**
+拉取离线消息上行报文体
+适用于：
+    消息类型 Type = PULL_ACT（拉取动作）
+    业务类型 MsgType = PULL_OFFLINE_MSG（拉取离线消息）、PULL_GROUP_MSG（拉取群的消息）、PULL_SYS_MSG（拉取系统的消息）、PULL_RECENT_MSG（拉取最近的消息）
+
+Message 上行 需传字段：
+    version 消息报文版本
+    appkey  IM分配的appkey
+    sendTime    发送时间(单位:毫秒)
+    type    消息类型，详见 Type 枚举, Constant.Type
+    mType   业务类型，详见 MsgType 枚举，Constant.MsgType
+    sId 发送者ID
+    body 消息报文体
+    cc  国家码
+
+**/
+message OfflineReq {
+    //开始版本
+    int64 startVersion = 1;
+    //结束版本
+    int64 endVersion = 2;
+    //拉取的版本号
+    repeated int64 msgVersions = 3;
+    // 语言
+    string lang = 4;
+    //群id
+    int64 gId = 5;
+}
+
+/**
+拉取群消息离线上行，支持多个群离线
+适用于：
+    消息类型 Type = PULL_ACT（拉取动作）
+    业务类型 MsgType = PULL_GROUP_MSG（拉取群的消息）
+
+Message 上行 需传字段：
+    version 消息报文版本
+    appkey  IM分配的appkey
+    sendTime    发送时间(单位:毫秒)
+    type    消息类型，详见 Type 枚举, Constant.Type
+    mType   业务类型，详见 MsgType 枚举，Constant.MsgType
+    sId 发送者ID
+    body 消息报文体
+    cc  国家码
+
+**/
+message GroupOfflineReq {
+    repeated OfflineReq OfflineReq = 1;
+}
+
+/**
+拉取离线消息下行报文体
+适用于：
+    消息类型 Type = PULL_ACT（拉取动作）
+    业务类型 MsgType = PULL_OFFLINE_MSG（拉取离线消息）、PULL_GROUP_MSG（拉取群的消息）、PULL_SYS_MSG（拉取系统的消息）、PULL_RECENT_MSG（拉取最近的消息）
+
+Message 下行返回字段：
+    version 消息报文版本
+    appkey  IM分配的appkey
+    sendTime    发送时间(单位:毫秒)
+    type    消息类型，详见 Type 枚举, Constant.Type
+    mType   业务类型，详见 MsgType 枚举，Constant.MsgType
+    sId 发送者ID
+    body 消息报文体
+    cc  国家码
+
+**/
+message OfflineRes {
+    repeated GMessage offlineMsg = 1;
+}

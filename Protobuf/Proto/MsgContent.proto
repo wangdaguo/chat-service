@@ -1,0 +1,161 @@
+syntax = "proto3";
+package protobuf.Garuda;
+
+option objc_class_prefix = "MsgContent";
+option java_package = "com.asiainno.garuda.im.proto";
+
+//消息内容报文体
+
+/**
+文本类消息
+  适用于：
+    消息类型：
+        用户类消息：Type = USER_CHAT（单聊） 、GROUP_CHAT（群聊）
+        系统类消息：Type = SYS_NOTICE（系统通知）、SYS_BROADCAST（系统广播）
+    业务类型 MsgType = NORMAL_MSG（一般消息）、以及其他不需要额外业务参数的消息
+    消息格式 MsgFormat = TEXT（文本）
+
+Message 上行 需传字段：
+    version 消息报文版本
+    appkey  IM分配的appkey
+    msgid   消息ID,用于记录消息唯一标识(例如server端回ACK时,客户端可根据此ID唯一标识),对于消息业务报文此参数为必须
+    sendTime    发送时间(单位:毫秒)
+    type    消息类型，详见 Type 枚举, Constant.Type
+    mType   业务类型，详见 MsgType 枚举，Constant.MsgType
+    mFormat 消息格式，详见 MsgFormat 枚举，Constant.MsgFormat
+    sId 发送者ID
+    rId 接收者ID    用于 ：Type = USER_1V1（用户1V1）
+    gId 组ID    用于 ：GROUP_CHAT（群聊） 、GROUP_CHAT_VN（群聊里的私聊）
+    body 消息报文体
+    rIds    用于：USER_1VN（批量发消息）、GROUP_CHAT_VN（群聊里的私聊）
+    cc  国家码
+
+Message 下行 返回的额外字段：
+    receiveTime 接收时间(单位:毫秒)，IM服务器接收时间，只用于下行消息。
+    msgVersion  消息版本号(用户／系统)，IM服务端生成。用于Client与IM进行消息同步。
+    subVersion  子消息（群）版本号，IM服务端生成，用于同步子（群）消息。   用于群消息
+    msgStatus   消息状态：0：正常初始化 1：隐藏，默认为0
+
+**/
+message MsgText {
+    // 消息内容
+    string content = 1;
+}
+
+/**
+同 MsgText ，附加了跳转类型
+消息格式 MsgFormat = TEXT（文本）
+**/
+message MsgGotoText {
+    // 消息内容
+    string content = 1;
+    // 消息的跳转类型,详见 GotoType 枚举，Constant.GotoType
+    int32 gotoType = 2;
+    /**业务实体，json字符串，用于具体业务
+     结构   {
+                uid : '需要跳转到profile的用户id' ,
+                roomId : '跳转到直播间的 roomId' ,
+                name : '链接名称' ,
+                url : '链接url' ,
+
+                ... 根据业务可以进行扩展，供业务端和客户端使用。
+            }
+    **/
+    string bizBody = 3;
+
+}
+
+/**
+图片类消息
+  适用于：
+    消息类型：
+        用户类消息：Type = USER_CHAT（单聊） 、GROUP_CHAT（群聊）
+        系统类消息：Type = SYS_NOTICE（系统通知）、SYS_BROADCAST（系统广播）
+    业务类型 MsgType = NORMAL_MSG（一般消息）、以及其他不需要额外业务参数的消息
+    消息格式 MsgFormat = PIC（图片）
+
+
+Message 上行 需传字段：
+    version 消息报文版本
+    appkey  IM分配的appkey
+    msgid   消息ID,用于记录消息唯一标识(例如server端回ACK时,客户端可根据此ID唯一标识),对于消息业务报文此参数为必须
+    sendTime    发送时间(单位:毫秒)
+    type    消息类型，详见 Type 枚举, Constant.Type
+    mType   业务类型，详见 MsgType 枚举，Constant.MsgType
+    mFormat 消息格式，详见 MsgFormat 枚举，Constant.MsgFormat
+    sId 发送者ID
+    rId 接收者ID    用于 ：Type = USER_1V1（用户1V1）
+    gId 组ID    用于 ：GROUP_CHAT（群聊） 、GROUP_CHAT_VN（群聊里的私聊）
+    body 消息报文体
+    rIds    用于：USER_1VN（批量发消息）、GROUP_CHAT_VN（群聊里的私聊）
+    cc  国家码
+
+Message 下行 返回的额外字段：
+    receiveTime 接收时间(单位:毫秒)，IM服务器接收时间，只用于下行消息。
+    msgVersion  消息版本号(用户／系统)，IM服务端生成。用于Client与IM进行消息同步。
+    subVersion  子消息（群）版本号，IM服务端生成，用于同步子（群）消息。   用于群消息
+    msgStatus   消息状态：0：正常初始化 1：隐藏，默认为0
+
+
+**/
+message MsgPic {
+    // 消息内容
+    string content = 1;
+
+    //图片名称
+    string name = 4;
+    //图片url
+    string url = 5;
+
+    //小图片二进制流
+    bytes pic = 6;
+    //图片后缀
+    string ext = 7;
+    //宽
+    double w = 8;
+    //高
+    double h = 9;
+    //大小
+    double size = 10;
+
+}
+
+/**
+同 MsgPic ，附加了跳转类型
+消息格式 MsgFormat = GOTO_PIC（图片）
+**/
+message MsgGotoPic {
+    // 消息内容
+    string content = 1;
+    // 消息的跳转类型,详见 GotoType 枚举，Constant.GotoType
+    int32 gotoType = 2;
+    /**业务实体，json字符串，用于具体业务
+     结构   {
+                uid : '需要跳转到profile的用户id' ,
+                roomId  '跳转到直播间的 roomId' ,
+                name : '链接名称' ,
+                url : '链接url' ,
+
+                ... 根据业务可以进行扩展，供业务端和客户端使用。
+            }
+    **/
+    string bizBody = 3;
+
+    //图片名称
+    string name = 4;
+    //图片url
+    string url = 5;
+
+    //小图片二进制流
+    bytes pic = 6;
+    //图片后缀
+    string ext = 7;
+    //宽
+    double w = 8;
+    //高
+    double h = 9;
+    //大小
+    double size = 10;
+
+}
+

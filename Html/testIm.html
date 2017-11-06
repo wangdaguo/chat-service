@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+<meta charset="UTF-8">
+<meta name="renderer" content="webkit">
+<title>Insert title here</title>
+<link href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="vendor/twbs/bootstrap/dist/js/jquery.min.js"></script>
+<script src="vendor/twbs/bootstrap/dist/js/jquery.json.min.js"></script>
+<script src="vendor/twbs/bootstrap/dist/js/less.min.js"></script>
+<script>
+	
+	function htmlEncode(value){
+	  return $('<div/>').text(value).html();
+	}
+
+	function htmlDecode(value){
+	  return $('<div/>').html(value).text();
+	}
+	
+    function addMsgToChat(html) {
+    	$('#container_right_top').append(html);
+		var $chat_container = $('#container_right_top');
+		$('#container_right_top').scrollTop($chat_container[0].scrollHeight - $chat_container[0].offsetHeight);
+     }
+    
+	$().ready(function() {
+		var host = "127.0.0.1:8282";
+		var socket = new WebSocket('ws://' + host); 
+
+		// 打开Socket 
+		socket.onopen = function(event) { 
+			console.log('connected'); 
+			///认证
+			var data = {sysId: -1, data:{}, flag:2, operation:1, token:'26ea23a131c19a2a52ebab627cc3ea9c'};
+		  	  console.log(data);
+			  socket.send($.toJSON(data));
+		}
+		  
+
+	  // 监听消息
+	  socket.onmessage = function(event) {
+	    console.log('Client received a message',event.data); 
+	    var msg = $.evalJSON(event.data);
+	    if (msg.errcode == 0) {
+	    	if(typeof(msg.data) == 'undefined' || msg.data == '') {
+	    		return true;
+	    	}
+	    	console.log('data',msg.data);
+			  //本地添加 消息
+			  if(msg.data.data.mFormat == 0) {
+					var localMessage = "<div class='row'><div class='col-md-1'>用户</div>";
+					localMessage += "<div class='col-md-11'><span class='chat_content_you' >" + htmlEncode(msg.data.data.content) + "</span>";
+					localMessage += "</div></div>";
+					addMsgToChat(localMessage);
+			  }
+	    } else {
+	    	console.log('data',msg.errmsg);
+	    }
+	  }; 
+
+	  // 监听Socket的关闭
+	  socket.onclose = function(event) { 
+	    console.log('Client notified socket has closed',event); 
+	  };
+	  //socket.readyState
+
+	  $('#send_message').click(function() {
+		  var msg = $('#message_content').val();
+		  if (msg == '') {
+			  alert('消息不能为空');
+			  return false;
+		  }
+		  if (socket.readyState == 1) { //建立连接
+			  var uid = $('#message_rid').val();
+		  	  var nowtime = new Date();
+			  var data = {sysId: -1, flag:2, operation:2, data:
+			  		{
+				  type:10, 
+				  mFormat:0, 
+				  content:msg, 
+				  receiveTime:nowtime.getTime(),
+				  msgid:nowtime.getTime(),
+				  msgVersion:'',
+				  country:'CN', 
+				  language:'zh-CN',
+				  url:'',
+				  name:'',
+				  	}, 
+				  uid:uid, adminId:11};
+		  	  console.log(data);
+			  socket.send($.toJSON(data));
+			  //本地添加 消息
+				var localMessage = "<div class='row'><div class='col-md-11 text-right'>";
+				localMessage += "<span class='chat_content_me' >" + htmlEncode(msg) + "</span>";
+				localMessage += "</div><div class='col-md-1'>我</div></div>";
+				addMsgToChat(localMessage);
+				$('#message_content').val('');
+		  } else {
+			  alert('连接已中断');
+			  return false;
+		  }
+		  
+	  });
+	  
+	  //切换用户
+	  $(".user").click(function() {
+		  var oldUid = $('.user.active a').data('uid');
+		  if (oldUid) {
+			  //保存数据
+			  var oldContent = $("#container_right_top").html();
+			  sessionStorage.setItem("uid_" + oldUid, oldContent);
+		  }
+		  var newUid = $(this).find('a').data('uid');
+		  var content = sessionStorage.getItem("uid_" + newUid);
+		  $("#container_right_top").html(content);
+		  $(".user").removeClass('active');
+		  $(this).addClass('active');
+	  });
+	  //默认选择第一个用户
+	  $(".user:first").click();
+		
+	});
+
+</script>
+<style>
+#container_left{
+	border-right: 1px #f00 solid;
+	overflow:scroll;
+	height:inherit;
+}
+
+#container_left li{
+	height:30px;
+	line-height:30px;
+	font-size:16px;
+	border:1px #000 solid;
+	border-radius:10px;
+	margin-top:5px;
+	padding-left:10px;
+}
+#container_right_bottom{
+	margin-top:20px;
+	border-top:1px #000 solid;
+	padding-top:20px;
+	height:20%;
+}
+#container_right_top{
+	height:80%;
+	word-wrap:break-word;
+	overflow:scroll;
+	background-color:lightgray;
+}
+#container_right_top .row{
+	margin-top:20px;
+}
+#container_right_top div span{
+	padding:10px 2px;
+	border-radius:10px;
+	line-height:30px;
+}
+.chat_content_you{
+	background-color:white;
+
+}
+.chat_content_me{
+	background-color:lightgreen;
+}
+.active{
+	background-color:lightgreen;
+}
+</style>
+</head>
+<body style="height: 100%;">
+	<div class="container" style="height: inherit;">
+		<div class="row" style="height: inherit;">
+			<div class="col-md-2" id="container_left">
+				<ul class="list-unstyled">
+					<li class="user"><a href = '#'  data-uid="1001">用户名1001</a><span class="badge">1</span></li>
+					<li class="user"><a href = '#' data-uid="1002">用户名1002</a></li>
+					
+				</ul>
+
+			</div>
+			<div class="col-md-10" style="height: inherit;">
+				<div class="row" id="container_right_top">
+						
+				</div>
+				
+				<div class="row" id="container_right_bottom">
+					<div class="form-group">
+						<div class="col-md-8"><input id="message_content" class="form-control" type="text" /></div>
+						<div class="col-md-2"><input id="message_rid" class="form-control" type="text" /></div>
+						<div class="col-md-2"><button id="send_message" class="btn btn-default">发送</button></div>
+					</div>
+					
+				</div>
+			
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

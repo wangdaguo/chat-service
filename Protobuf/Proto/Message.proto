@@ -1,0 +1,83 @@
+syntax = "proto3";
+package protobuf.Garuda;
+
+option objc_class_prefix = "Message";
+option java_package = "com.asiainno.garuda.im.proto";
+
+// 通信报文(主pb文件)
+message GMessage {
+    // 消息报文版本(1.0)
+    string version = 1;
+
+    //IM分配的appkey，直播 : uplive 。Client在出席注册的时候传入即可，其他情况为IM内部使用
+    string appkey = 2;
+
+    //appkey下不同的马甲号
+    string feature = 3;
+
+    //消息ID,用于记录消息唯一标识(例如server端回ACK时,客户端可根据此ID唯一标识),对于消息业务报文此参数为必须
+    string msgid = 4;
+
+    // 发送时间(单位:毫秒)
+    int64 sendTime = 5;
+
+    // 接收时间(单位:毫秒)，IM服务器接收时间，只用于下行消息。
+    int64 receiveTime = 6;
+
+    //消息类型，详见 Type 枚举, Constant.Type
+    int32 type = 7;
+
+    //业务类型，详见 MsgType 枚举，Constant.MsgType
+    int32 mType = 8;
+
+    //消息格式，详见 MsgFormat 枚举，Constant.MsgFormat
+    int32 mFormat = 9;
+
+    // 发送者ID
+    int64 sId = 10;
+
+    // 接收者ID
+    int64 rId = 11;
+
+    // 组ID
+    int64 gId = 12;
+
+    // 消息版本号(用户／系统)，IM服务端生成。用于Client与IM进行消息同步。
+    int64 msgVersion = 13;
+
+    //子消息（群）版本号，IM服务端生成，用于同步子（群）消息。
+    int64 subVersion = 14;
+
+    /*
+    消息报文体，根据不同的消息类型type、业务类型 mtype、消息格式 mformat来决定消息报文体 body。
+    且所有存在消息报文体body的都需要将body加密（ 仅针对上行报文 client → connector，且 出席注册 REGISTER 不需要加密 ），
+    加密的对称密钥是通过 <认证服务> 获取的。
+    */
+    bytes body = 15;
+
+    // 消息状态：0：正常初始化 1：隐藏，默认为0
+    int32 msgStatus = 16;
+
+    // 批量发送用户id
+    repeated int64 rIds = 17;
+
+    //多语言标识，默认'0'， '0':全部语言 ，其他为对应语言标识符，如 'zh-TW'
+    string multilang = 18;
+
+    //国家码
+    string cc = 19;
+
+    // 终端类型，详见 TermType 枚举, Constant.TermType。IM内部使用，Client 只需要在注册通过 ServerActivity.Register 传入。
+    int32 termType =20;
+
+    //目前仅IM内部使用，由业务端传入, 用于兼容历史push类型，push标识 0 需要IM发push ， 1 不需要IM发push ， 默认 0
+    int32 pushMark = 21;
+
+    //目前仅IM内部使用，由业务端传入, 发送标识，默认 0 ; 0 直发，并存储离线; 1 直发，不存储离线；2 不直发，只存储离线；
+    int32 sendMark = 22;
+
+    //扩展字段
+    string ext = 23;
+
+}
+

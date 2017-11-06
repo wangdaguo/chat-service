@@ -1,0 +1,44 @@
+2017-10-26 08:14:04 pid:9168 Workerman[start.php] start in DEBUG mode
+2017-10-26 08:18:14 pid:9168 Workerman[start.php] Stopping ...
+2017-10-26 08:18:14 pid:9168 Workerman[start.php] has been stopped
+2017-10-26 08:19:12 pid:9256 Workerman[start.php] start in DEBUG mode
+2017-10-26 08:28:12 pid:9256 worker[worker:9257] exit with status 5247
+2017-10-26 08:28:12 pid:9261 Gateway: Worker->name conflict. Key:127.0.0.1:worker:0
+2017-10-26 08:28:12 pid:9262 Gateway: Worker->name conflict. Key:127.0.0.1:worker:0
+2017-10-26 08:28:12 pid:9263 Gateway: Worker->name conflict. Key:127.0.0.1:worker:0
+2017-10-26 08:28:12 pid:9264 Gateway: Worker->name conflict. Key:127.0.0.1:worker:0
+2017-10-26 08:28:13 pid:9261 Gateway: Worker->name conflict. Key:127.0.0.1:worker:0
+2017-10-26 08:28:13 pid:9262 Gateway: Worker->name conflict. Key:127.0.0.1:worker:0
+2017-10-26 08:28:13 pid:9263 Gateway: Worker->name conflict. Key:127.0.0.1:worker:0
+2017-10-26 08:28:13 pid:9264 Gateway: Worker->name conflict. Key:127.0.0.1:worker:0
+2017-10-26 08:28:14 pid:9262 Gateway: Worker->name conflict. Key:127.0.0.1:worker:0
+2017-10-26 08:28:14 pid:9263 Gateway: Worker->name conflict. Key:127.0.0.1:worker:0
+2017-10-26 08:28:14 pid:9261 Gateway: Worker->name conflict. Key:127.0.0.1:worker:0
+2017-10-26 08:28:14 pid:9264 Gateway: Worker->name conflict. Key:127.0.0.1:worker:0
+2017-10-26 08:28:14 pid:9256 Workerman[start.php] Stopping ...
+2017-10-26 08:28:14 pid:9256 Workerman[start.php] has been stopped
+2017-10-26 08:32:42 pid:9359 Workerman[start.php] start in DEBUG mode
+2017-10-26 08:39:54 pid:9359 Workerman[start.php] reloading
+2017-10-26 08:41:26 pid:9359 Workerman[start.php] Stopping ...
+2017-10-26 08:41:26 pid:9359 Workerman[start.php] has been stopped
+2017-10-26 08:41:29 pid:9483 Workerman[start.php] start in DEBUG mode
+2017-10-26 08:41:57 pid:9483 Workerman[start.php] reloading
+2017-10-26 08:42:00 pid:9483 Workerman[start.php] Stopping ...
+2017-10-26 08:42:00 pid:9483 Workerman[start.php] has been stopped
+2017-10-26 08:42:00 pid:9505 Workerman[start.php] start in DEBUG mode
+2017-10-26 08:42:30 pid:9505 Workerman[start.php] reloading
+2017-10-26 08:42:32 pid:9505 Workerman[start.php] Stopping ...
+2017-10-26 08:42:32 pid:9505 Workerman[start.php] has been stopped
+2017-10-26 08:42:32 pid:9526 Workerman[start.php] start in DEBUG mode
+2017-10-26 08:42:57 pid:9526 Workerman[start.php] Stopping ...
+2017-10-26 08:42:57 pid:9526 Workerman[start.php] has been stopped
+2017-10-26 08:44:57 pid:9577 Workerman[start.php] start in DEBUG mode
+2017-10-26 08:45:09 pid:9577 Workerman[start.php] Stopping ...
+2017-10-26 08:45:09 pid:9577 Workerman[start.php] has been stopped
+2017-10-26 08:45:22 pid:9591 Workerman[start.php] start in DEBUG mode
+2017-10-26 09:09:30 pid:9591 Workerman[start.php] Stopping ...
+2017-10-26 09:09:30 pid:9591 Workerman[start.php] has been stopped
+2017-10-26 09:16:33 pid:10085 Workerman[start.php] start in DEBUG mode
+2017-10-26 09:18:25 pid:10085 Workerman[start.php] reloading
+2017-10-26 09:18:32 pid:10085 Workerman[start.php] Stopping ...
+2017-10-26 09:18:32 pid:10085 Workerman[start.php] has been stopped

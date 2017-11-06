@@ -1,0 +1,89 @@
+2017-09-18 00:34:08 pid:4078 Workerman[start.php] start in DEBUG mode
+2017-09-18 02:45:53 pid:4078 Workerman[start.php] Stopping ...
+2017-09-18 02:45:53 pid:4078 Workerman[start.php] has been stopped
+2017-09-18 06:51:27 pid:6264 Workerman[start.php] start in DEBUG mode
+2017-09-18 07:17:51 pid:6264 Workerman[start.php] Stopping ...
+2017-09-18 07:17:51 pid:6264 Workerman[start.php] has been stopped
+2017-09-18 07:39:48 pid:6541 Workerman[start.php] start in DEBUG mode
+2017-09-18 08:31:36 pid:6541 Workerman[start.php] Stopping ...
+2017-09-18 08:31:36 pid:6541 Workerman[start.php] has been stopped
+2017-09-18 08:38:17 pid:7105 Workerman[start.php] start in DEBUG mode
+2017-09-18 11:18:38 pid:7105 Workerman[start.php] Stopping ...
+2017-09-18 11:18:38 pid:7105 Workerman[start.php] has been stopped
+2017-09-18 11:45:38 pid:8285 Workerman[start.php] start in DEBUG mode
+2017-09-18 13:00:16 pid:8286 exception 'RedisException' with message 'read error on connection' in /home/wangxinguo/chat-service/App/GlobalVariable.php:150
+Stack trace:
+#0 /home/wangxinguo/chat-service/App/GlobalVariable.php(150): Redis->sMembers('IM:countryAdmin...')
+#1 /home/wangxinguo/chat-service/App/Statistic.php(38): App\GlobalVariable::getCountrysStatistic(Array)
+#2 /home/wangxinguo/chat-service/App/Flag.php(44): App\Statistic->message()
+#3 /home/wangxinguo/chat-service/App/Events.php(120): App\Flag->getResult('7f0000010b57000...')
+#4 [internal function]: Events::onMessage('7f0000010b57000...', '{"flag":3,"oper...')
+#5 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(369): call_user_func('Events::onMessa...', '7f0000010b57000...', '{"flag":3,"oper...')
+#6 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#7 /home/wangxinguo/chat-service/vendor/workerman/workerman/Connection/TcpConnection.php(480): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#8 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #65, Object(Workerman\Events\React\ExtEventLoop))
+#9 /home/wangxinguo/chat-service/vendor/react/event-loop/src/ExtEventLoop.php(318): call_user_func(Array, Resource id #65, Object(Workerman\Events\React\ExtEventLoop))
+#10 [internal function]: React\EventLoop\ExtEventLoop->React\EventLoop\{closure}(Resource id #65, 2, NULL)
+#11 /home/wangxinguo/chat-service/vendor/react/event-loop/src/ExtEventLoop.php(204): EventBase->loop(1)
+#12 /home/wangxinguo/chat-service/vendor/workerman/workerman/Events/React/ExtEventLoop.php(118): React\EventLoop\ExtEventLoop->run()
+#13 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(1561): Workerman\Events\React\ExtEventLoop->loop()
+#14 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(183): Workerman\Worker->run()
+#15 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(959): GatewayWorker\BusinessWorker->run()
+#16 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(922): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#17 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(430): Workerman\Worker::forkWorkers()
+#18 /home/wangxinguo/chat-service/start.php(39): Workerman\Worker::runAll()
+#19 {main}
+2017-09-18 13:00:16 pid:8286 WORKER EXIT UNEXPECTED 
+2017-09-18 13:00:16 pid:8285 worker[worker:8286] exit with status 64000
+2017-09-18 13:22:10 pid:8803 exception 'RedisException' with message 'read error on connection' in /home/wangxinguo/chat-service/App/GlobalVariable.php:150
+Stack trace:
+#0 /home/wangxinguo/chat-service/App/GlobalVariable.php(150): Redis->sMembers('IM:countryAdmin...')
+#1 /home/wangxinguo/chat-service/App/Statistic.php(38): App\GlobalVariable::getCountrysStatistic(Array)
+#2 /home/wangxinguo/chat-service/App/Flag.php(44): App\Statistic->message()
+#3 /home/wangxinguo/chat-service/App/Events.php(120): App\Flag->getResult('7f0000010b57000...')
+#4 [internal function]: Events::onMessage('7f0000010b57000...', '{"flag":3,"oper...')
+#5 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(369): call_user_func('Events::onMessa...', '7f0000010b57000...', '{"flag":3,"oper...')
+#6 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#7 /home/wangxinguo/chat-service/vendor/workerman/workerman/Connection/TcpConnection.php(480): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#8 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #66, Object(Workerman\Events\React\ExtEventLoop))
+#9 /home/wangxinguo/chat-service/vendor/react/event-loop/src/ExtEventLoop.php(318): call_user_func(Array, Resource id #66, Object(Workerman\Events\React\ExtEventLoop))
+#10 [internal function]: React\EventLoop\ExtEventLoop->React\EventLoop\{closure}(Resource id #66, 2, NULL)
+#11 /home/wangxinguo/chat-service/vendor/react/event-loop/src/ExtEventLoop.php(204): EventBase->loop(1)
+#12 /home/wangxinguo/chat-service/vendor/workerman/workerman/Events/React/ExtEventLoop.php(118): React\EventLoop\ExtEventLoop->run()
+#13 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(1561): Workerman\Events\React\ExtEventLoop->loop()
+#14 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(183): Workerman\Worker->run()
+#15 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(959): GatewayWorker\BusinessWorker->run()
+#16 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(922): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#17 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(1075): Workerman\Worker::forkWorkers()
+#18 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(433): Workerman\Worker::monitorWorkers()
+#19 /home/wangxinguo/chat-service/start.php(39): Workerman\Worker::runAll()
+#20 {main}
+2017-09-18 13:22:10 pid:8803 WORKER EXIT UNEXPECTED 
+2017-09-18 13:22:10 pid:8285 worker[worker:8803] exit with status 64000
+2017-09-18 15:24:26 pid:8956 exception 'RedisException' with message 'read error on connection' in /home/wangxinguo/chat-service/App/GlobalVariable.php:150
+Stack trace:
+#0 /home/wangxinguo/chat-service/App/GlobalVariable.php(150): Redis->sMembers('IM:countryAdmin...')
+#1 /home/wangxinguo/chat-service/App/Statistic.php(38): App\GlobalVariable::getCountrysStatistic(Array)
+#2 /home/wangxinguo/chat-service/App/Flag.php(44): App\Statistic->message()
+#3 /home/wangxinguo/chat-service/App/Events.php(120): App\Flag->getResult('7f0000010b57000...')
+#4 [internal function]: Events::onMessage('7f0000010b57000...', '{"flag":3,"oper...')
+#5 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(369): call_user_func('Events::onMessa...', '7f0000010b57000...', '{"flag":3,"oper...')
+#6 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#7 /home/wangxinguo/chat-service/vendor/workerman/workerman/Connection/TcpConnection.php(480): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#8 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #67, Object(Workerman\Events\React\ExtEventLoop))
+#9 /home/wangxinguo/chat-service/vendor/react/event-loop/src/ExtEventLoop.php(318): call_user_func(Array, Resource id #67, Object(Workerman\Events\React\ExtEventLoop))
+#10 [internal function]: React\EventLoop\ExtEventLoop->React\EventLoop\{closure}(Resource id #67, 2, NULL)
+#11 /home/wangxinguo/chat-service/vendor/react/event-loop/src/ExtEventLoop.php(204): EventBase->loop(1)
+#12 /home/wangxinguo/chat-service/vendor/workerman/workerman/Events/React/ExtEventLoop.php(118): React\EventLoop\ExtEventLoop->run()
+#13 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(1561): Workerman\Events\React\ExtEventLoop->loop()
+#14 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(183): Workerman\Worker->run()
+#15 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(959): GatewayWorker\BusinessWorker->run()
+#16 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(922): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#17 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(1075): Workerman\Worker::forkWorkers()
+#18 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(433): Workerman\Worker::monitorWorkers()
+#19 /home/wangxinguo/chat-service/start.php(39): Workerman\Worker::runAll()
+#20 {main}
+2017-09-18 15:24:26 pid:8956 WORKER EXIT UNEXPECTED 
+2017-09-18 15:24:26 pid:8285 worker[worker:8956] exit with status 64000
+2017-09-18 19:14:17 pid:8285 Workerman[start.php] Stopping ...
+2017-09-18 19:14:17 pid:8285 Workerman[start.php] has been stopped

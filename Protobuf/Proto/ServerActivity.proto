@@ -1,0 +1,95 @@
+syntax = "proto3";
+package protobuf.Garuda;
+
+import "Constant.proto";
+option objc_class_prefix = "ServerActivity";
+option java_package = "com.asiainno.garuda.im.proto";
+
+//服务器交互类报文体
+
+/**
+注册报文体(上行、下行统一用这个)
+适用于：
+消息类型 Type = REGISTER
+
+Message 上行 需传字段：
+    version 消息报文版本
+    appkey  IM分配的appkey
+    sendTime    发送时间(单位:毫秒)
+    type    消息类型，详见 Type 枚举, Constant.Type
+    sId 发送者ID
+    body 消息报文体
+
+**/
+message Register {
+
+    //设备唯一标识，（处理同一个用户在不同设备上登录的情况）
+    string deviceid = 1;
+    // 终端类型，详见 TermType 枚举, Constant.TermType
+    int32 termType = 2;
+    //应用版本号
+    string appVersion = 3;
+    //应用名称 uplive / 马甲包
+    string appName = 4;
+    //渠道
+    string channel = 5;
+    //设备详情
+    DeviceDetail deviceDetail = 6;
+    //用户 token
+    string userToken = 7;
+    //用户信息
+    UserInfo userInfo = 8;
+    // 是否重连
+    bool isReconn = 9;
+
+    //IM authToken  可解密m1得到对称密钥
+    bytes authToken = 10;
+    // 加密后的对称秘钥，用authToken解密，可得到对称密钥，用于后续的长连接报文内容体加密。
+    bytes m1 = 11;
+    //注册结果（下行报文返回）
+    int32 rResult = 12;
+
+}
+
+
+//设备详情
+message DeviceDetail {
+    //操作系统
+    string os = 1;
+    //设备品牌
+    string brand = 2;
+    //设备型号
+    string model = 3;
+}
+
+
+/**
+用户登出报文
+适用于：
+消息类型 Type = OUT（登出）
+
+Message 上行 需传字段：
+    version 消息报文版本
+    appkey  IM分配的appkey
+    sendTime    发送时间(单位:毫秒)
+    type    消息类型，详见 Type 枚举, Constant.Type
+    sId 发送者ID
+    body 消息报文体
+
+**/
+message Out {
+    // 是否重连
+    bool isReconn = 1;
+    // 被强制退出时长(毫秒),若为0表示永久(MsgType=FORCED_OUT)
+    int64 effectiveTime = 2;
+}
+
+//IM内部注册报文
+message InternalRegister {
+    //服务器类型
+    int32 sType = 1;
+    //ip
+    string ip = 2;
+    //端口号
+    int32 port = 3;
+}

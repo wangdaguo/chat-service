@@ -1,0 +1,115 @@
+2017-09-15 20:41:53 pid:15358 exception 'RedisException' with message 'read error on connection' in /home/wangxinguo/chat-service/App/GlobalVariable.php:150
+Stack trace:
+#0 /home/wangxinguo/chat-service/App/GlobalVariable.php(150): Redis->sMembers('IM:countryAdmin...')
+#1 /home/wangxinguo/chat-service/App/Statistic.php(38): App\GlobalVariable::getCountrysStatistic(Array)
+#2 /home/wangxinguo/chat-service/App/Flag.php(44): App\Statistic->message()
+#3 /home/wangxinguo/chat-service/App/Events.php(120): App\Flag->getResult('7f0000010b54000...')
+#4 [internal function]: Events::onMessage('7f0000010b54000...', '{"flag":3,"oper...')
+#5 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(369): call_user_func('Events::onMessa...', '7f0000010b54000...', '{"flag":3,"oper...')
+#6 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#7 /home/wangxinguo/chat-service/vendor/workerman/workerman/Connection/TcpConnection.php(480): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#8 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #66, Object(Workerman\Events\React\ExtEventLoop))
+#9 /home/wangxinguo/chat-service/vendor/react/event-loop/src/ExtEventLoop.php(318): call_user_func(Array, Resource id #66, Object(Workerman\Events\React\ExtEventLoop))
+#10 [internal function]: React\EventLoop\ExtEventLoop->React\EventLoop\{closure}(Resource id #66, 2, NULL)
+#11 /home/wangxinguo/chat-service/vendor/react/event-loop/src/ExtEventLoop.php(204): EventBase->loop(1)
+#12 /home/wangxinguo/chat-service/vendor/workerman/workerman/Events/React/ExtEventLoop.php(118): React\EventLoop\ExtEventLoop->run()
+#13 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(1561): Workerman\Events\React\ExtEventLoop->loop()
+#14 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(183): Workerman\Worker->run()
+#15 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(959): GatewayWorker\BusinessWorker->run()
+#16 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(922): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#17 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(1075): Workerman\Worker::forkWorkers()
+#18 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(433): Workerman\Worker::monitorWorkers()
+#19 /home/wangxinguo/chat-service/start.php(39): Workerman\Worker::runAll()
+#20 {main}
+2017-09-15 20:41:53 pid:15358 WORKER EXIT UNEXPECTED 
+2017-09-15 20:41:53 pid:14470 worker[worker:15358] exit with status 64000
+2017-09-15 20:42:03 pid:14479 Register auth timeout (127.0.0.1). See http://wiki.workerman.net/Error4 for detail
+2017-09-15 20:43:23 pid:15858 exception 'PDOException' with message 'SQLSTATE[HY000] [2002] Connection timed out' in /home/wangxinguo/chat-service/vendor/workerman/mysql/src/Connection.php:1709
+Stack trace:
+#0 /home/wangxinguo/chat-service/vendor/workerman/mysql/src/Connection.php(1709): PDO->__construct('mysql:dbname=up...', 'php_root', 'php@root', Array)
+#1 /home/wangxinguo/chat-service/vendor/workerman/mysql/src/Connection.php(1695): Workerman\MySQL\Connection->connect()
+#2 /home/wangxinguo/chat-service/App/PubFunction.php(81): Workerman\MySQL\Connection->__construct('database_dev', '3306', 'php_root', 'php@root', 'up_im')
+#3 /home/wangxinguo/chat-service/App/Events.php(53): App\PubFunction::createConnection()
+#4 [internal function]: Events::onWorkerStart(Object(GatewayWorker\BusinessWorker))
+#5 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(204): call_user_func('Events::onWorke...', Object(GatewayWorker\BusinessWorker))
+#6 [internal function]: GatewayWorker\BusinessWorker->onWorkerStart(Object(GatewayWorker\BusinessWorker))
+#7 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(1550): call_user_func(Array, Object(GatewayWorker\BusinessWorker))
+#8 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(183): Workerman\Worker->run()
+#9 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(959): GatewayWorker\BusinessWorker->run()
+#10 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(922): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#11 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(1075): Workerman\Worker::forkWorkers()
+#12 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(433): Workerman\Worker::monitorWorkers()
+#13 /home/wangxinguo/chat-service/start.php(39): Workerman\Worker::runAll()
+#14 {main}
+2017-09-15 20:43:23 pid:15858 WORKER EXIT UNEXPECTED 
+2017-09-15 20:43:23 pid:14470 worker[worker:15858] exit with status 64000
+2017-09-15 20:43:33 pid:14479 Register auth timeout (127.0.0.1). See http://wiki.workerman.net/Error4 for detail
+2017-09-15 20:44:53 pid:15859 exception 'PDOException' with message 'SQLSTATE[HY000] [2002] Connection timed out' in /home/wangxinguo/chat-service/vendor/workerman/mysql/src/Connection.php:1709
+Stack trace:
+#0 /home/wangxinguo/chat-service/vendor/workerman/mysql/src/Connection.php(1709): PDO->__construct('mysql:dbname=up...', 'php_root', 'php@root', Array)
+#1 /home/wangxinguo/chat-service/vendor/workerman/mysql/src/Connection.php(1695): Workerman\MySQL\Connection->connect()
+#2 /home/wangxinguo/chat-service/App/PubFunction.php(81): Workerman\MySQL\Connection->__construct('database_dev', '3306', 'php_root', 'php@root', 'up_im')
+#3 /home/wangxinguo/chat-service/App/Events.php(53): App\PubFunction::createConnection()
+#4 [internal function]: Events::onWorkerStart(Object(GatewayWorker\BusinessWorker))
+#5 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(204): call_user_func('Events::onWorke...', Object(GatewayWorker\BusinessWorker))
+#6 [internal function]: GatewayWorker\BusinessWorker->onWorkerStart(Object(GatewayWorker\BusinessWorker))
+#7 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(1550): call_user_func(Array, Object(GatewayWorker\BusinessWorker))
+#8 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(183): Workerman\Worker->run()
+#9 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(959): GatewayWorker\BusinessWorker->run()
+#10 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(922): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#11 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(1075): Workerman\Worker::forkWorkers()
+#12 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(433): Workerman\Worker::monitorWorkers()
+#13 /home/wangxinguo/chat-service/start.php(39): Workerman\Worker::runAll()
+#14 {main}
+2017-09-15 20:44:53 pid:15859 WORKER EXIT UNEXPECTED 
+2017-09-15 20:44:53 pid:14470 worker[worker:15859] exit with status 64000
+2017-09-15 20:45:03 pid:14479 Register auth timeout (127.0.0.1). See http://wiki.workerman.net/Error4 for detail
+2017-09-15 20:46:24 pid:15862 exception 'PDOException' with message 'SQLSTATE[HY000] [2002] Connection timed out' in /home/wangxinguo/chat-service/vendor/workerman/mysql/src/Connection.php:1709
+Stack trace:
+#0 /home/wangxinguo/chat-service/vendor/workerman/mysql/src/Connection.php(1709): PDO->__construct('mysql:dbname=up...', 'php_root', 'php@root', Array)
+#1 /home/wangxinguo/chat-service/vendor/workerman/mysql/src/Connection.php(1695): Workerman\MySQL\Connection->connect()
+#2 /home/wangxinguo/chat-service/App/PubFunction.php(81): Workerman\MySQL\Connection->__construct('database_dev', '3306', 'php_root', 'php@root', 'up_im')
+#3 /home/wangxinguo/chat-service/App/Events.php(53): App\PubFunction::createConnection()
+#4 [internal function]: Events::onWorkerStart(Object(GatewayWorker\BusinessWorker))
+#5 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(204): call_user_func('Events::onWorke...', Object(GatewayWorker\BusinessWorker))
+#6 [internal function]: GatewayWorker\BusinessWorker->onWorkerStart(Object(GatewayWorker\BusinessWorker))
+#7 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(1550): call_user_func(Array, Object(GatewayWorker\BusinessWorker))
+#8 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(183): Workerman\Worker->run()
+#9 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(959): GatewayWorker\BusinessWorker->run()
+#10 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(922): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#11 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(1075): Workerman\Worker::forkWorkers()
+#12 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(433): Workerman\Worker::monitorWorkers()
+#13 /home/wangxinguo/chat-service/start.php(39): Workerman\Worker::runAll()
+#14 {main}
+2017-09-15 20:46:24 pid:15862 WORKER EXIT UNEXPECTED 
+2017-09-15 20:46:24 pid:14470 worker[worker:15862] exit with status 64000
+2017-09-15 20:46:34 pid:14479 Register auth timeout (127.0.0.1). See http://wiki.workerman.net/Error4 for detail
+2017-09-15 20:47:54 pid:15868 exception 'PDOException' with message 'SQLSTATE[HY000] [2002] Connection timed out' in /home/wangxinguo/chat-service/vendor/workerman/mysql/src/Connection.php:1709
+Stack trace:
+#0 /home/wangxinguo/chat-service/vendor/workerman/mysql/src/Connection.php(1709): PDO->__construct('mysql:dbname=up...', 'php_root', 'php@root', Array)
+#1 /home/wangxinguo/chat-service/vendor/workerman/mysql/src/Connection.php(1695): Workerman\MySQL\Connection->connect()
+#2 /home/wangxinguo/chat-service/App/PubFunction.php(81): Workerman\MySQL\Connection->__construct('database_dev', '3306', 'php_root', 'php@root', 'up_im')
+#3 /home/wangxinguo/chat-service/App/Events.php(53): App\PubFunction::createConnection()
+#4 [internal function]: Events::onWorkerStart(Object(GatewayWorker\BusinessWorker))
+#5 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(204): call_user_func('Events::onWorke...', Object(GatewayWorker\BusinessWorker))
+#6 [internal function]: GatewayWorker\BusinessWorker->onWorkerStart(Object(GatewayWorker\BusinessWorker))
+#7 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(1550): call_user_func(Array, Object(GatewayWorker\BusinessWorker))
+#8 /home/wangxinguo/chat-service/vendor/workerman/gateway-worker/src/BusinessWorker.php(183): Workerman\Worker->run()
+#9 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(959): GatewayWorker\BusinessWorker->run()
+#10 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(922): Workerman\Worker::forkOneWorker(Object(GatewayWorker\BusinessWorker))
+#11 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(1075): Workerman\Worker::forkWorkers()
+#12 /home/wangxinguo/chat-service/vendor/workerman/workerman/Worker.php(433): Workerman\Worker::monitorWorkers()
+#13 /home/wangxinguo/chat-service/start.php(39): Workerman\Worker::runAll()
+#14 {main}
+2017-09-15 20:47:54 pid:15868 WORKER EXIT UNEXPECTED 
+2017-09-15 20:47:54 pid:14470 worker[worker:15868] exit with status 64000
+2017-09-15 20:48:01 pid:14470 Workerman[start.php] Stopping ...
+2017-09-15 20:48:03 pid:14470 worker[worker:14472] exit with status 9
+2017-09-15 20:48:03 pid:14470 worker[worker:15869] exit with status 9
+2017-09-15 20:48:03 pid:14470 Workerman[start.php] has been stopped
+2017-09-15 21:50:38 pid:16204 Workerman[start.php] start in DEBUG mode
+2017-09-15 23:10:38 pid:16204 Workerman[start.php] Stopping ...
+2017-09-15 23:10:38 pid:16204 Workerman[start.php] has been stopped
+2017-09-15 23:18:10 pid:16963 Workerman[start.php] start in DEBUG mode
+2017-09-16 00:05:09 pid:16963 Workerman[start.php] Stopping ...
+2017-09-16 00:05:09 pid:16963 Workerman[start.php] has been stopped
